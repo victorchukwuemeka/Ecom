@@ -16,14 +16,14 @@ class AdminAuthMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    { 
-       //  $auth = Auth::user()->getRole();
-        // dd($auth);
+    {
+
+       //$auth = Auth::user()->getRole();
        if (Auth::user() &&  Auth::user()->getRole() == 'admin') {
            return $next($request);
         }else{
             return redirect()->route('home.index');
         }
-        
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
+//Route::get('/nav','App\Http\Controllers\HomeController@navbar');
 Route::get('/about', 'App\Http\Controllers\HomeController@about')->name("home.about");
+
+Route::get('/userRoler', 'App\Http\Controllers\HomeController@userRole');
+Route::get('/user', 'App\Http\Controllers\UserController@index' );
 
 
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name("product.index");
@@ -24,7 +29,7 @@ Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show')->nam
 
 
 
-Route::middleware('admin')->group(function (){
+Route::group(['middleware' => 'admin'],function (){
 
 Route::get('/admin', 'App\Http\Controllers\Admin\AdminHomeController@index')->name("admin.home.index");
 Route::get('/admin/products', 'App\Http\Controllers\Admin\AdminProductController@index')->name("admin.product.index");
@@ -47,7 +52,11 @@ Route::middleware('auth')->group(function(){
     Route::get('/my-account/orders', 'App\Http\Controllers\MyAccountController@order')->name("myaccount.orders");
 });
 
-
+// Laravel 8 & 9
+Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])
+->name('pay');
+Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback'])
+->name('payment.callback');
 
 
 Auth::routes();

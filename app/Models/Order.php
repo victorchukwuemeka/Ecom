@@ -10,6 +10,7 @@ use App\Models\Item;
 
 class Order extends Model
 {
+
     /**
     * ORDER ATTRIBUTES
     * $this->attributes['id'] - int - contains the order primary key (id)
@@ -99,16 +100,14 @@ class Order extends Model
         return $this->hasMany(Item::class);
     }
 
-    public function setItem($item)
+    public function setItems($item)
     {
         $this->items = $item;
     }
 
-    public function getItem()
+    public function getItems()
     {
         return $this->items;
     }
-
-
 
 }

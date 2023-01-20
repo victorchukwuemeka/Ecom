@@ -2,100 +2,82 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite('resources/css/app.css')
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <title>{{ config('app.name', 'Laravel') }}</title>
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link active" href="{{ route('home.index') }}">Home</a>
-                    <a class="nav-link active" href="{{ route('product.index') }}">Products</a>
-                    <a class= "nav-link active"  href="{{ route('cart.index')}}">Cart</a>
-                    <a class="nav-link active" href="{{ route('home.about') }}">About</a>
-                    <div class="vr bg-white mx-2 d-none d-lg-block"></div>
-                    @guest
-                    <a class="nav-link active" href="{{ route('login') }}">Login</a>
-                    <a class="nav-link active" href="{{ route('register') }}">Register</a>
-                    @else
-                    <a class="nav-link active" href="{{ route('myaccount.orders') }}">My Orders</a>
-                    <form id="logout" action="{{ route('logout') }}" method="POST">
-                        <a role="button" class="nav-link active"onclick="document.getElementById('logout').submit();">Logout</a>
+  <div id="app">
+
+    <!--NavBar -->
+        <nav class="relative container mx-auto p-6 ">
+
+            <!--flex container -->
+                <div class="flex items-center justify-between">
+                    <div class="pt-2">
+                      <img src="{{ asset('/img/logo.svg') }}" alt="">
+                    </div>
+
+                 <!--menu items -->
+                  <div class="hidden space-x-6  md:flex">
+                      <a class="hover:text-gray-300" href="{{ route('home.index') }}">
+                        Home
+                      </a>
+                      <a class="hover:text-gray-300" href="{{ route('product.index') }}">
+                        Products
+                      </a>
+                      <a class= "hover:text-gray-300"  href="{{ route('cart.index')}}">
+                        Cart
+                      </a>
+                      <a class="hover:text-gray-300" href="{{ route('home.about') }}">
+                        About
+                       </a>
+
+                     <!--button for login-->
+                      @guest
+                      <a class="hover:text-gray-300" href="{{ route('login') }}">
+                          Login
+                      </a>
+                      <a class="hover:text-gray-300" href="{{ route('register') }}">
+                          Register
+                      </a>
+                      @else
+                      <a class="hover:text-gray-300" href="{{ route('myaccount.orders') }}">
+                          My Orders
+                      </a>
+                      <form id="logout" action="{{ route('logout') }}" method="POST">
+                        <a role="button" class="hover:text-gray-300  no-underline"
+                           onclick="document.getElementById('logout').submit();">
+                           Logout
+                        </a>
                         @csrf
-                    </form>
-                    @endguest
+                      </form>
+                     @endguest
+                   </div>
                 </div>
 
-                <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                 data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>-->
-
-              <!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-                    <!-- Left Side Of Navbar -->
-                   <!-- <ul class="navbar-nav me-auto">
-
-                    </ul>-->
-
-                    <!-- Right Side Of Navbar
-                    <ul class="navbar-nav ms-auto">-->
-                        <!-- Authentication Links
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>-->
-            </div>
-        </nav>
-
-        <main class="py-4">
+            </nav>
+            <main class="space-y-5">
             @yield('content')
-        </main>
-    </div>
+         </main>
+
+    @livewireScripts
+</div>
 </body>
 </html>

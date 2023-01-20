@@ -33,8 +33,8 @@ class User extends Authenticatable
 
 
 
-    /** 
-     * all the  needed attribute of a user 
+    /**
+     * all the  needed attribute of a user
      */
 
     public function getId()
@@ -78,15 +78,18 @@ class User extends Authenticatable
         $this->attributes['password']= $password;
     }
 
-    public function getRole()
-    {
-        return $this->attributes['role'];
-    }
 
     public function setRole($role)
     {
         $this->attributes['role'] = $role;
     }
+
+    public function getRole()
+    {
+        return $this->attributes['role'];
+    }
+
+
 
     public function getBalance()
     {
@@ -102,7 +105,7 @@ class User extends Authenticatable
     {
         return $this->attributes['created_at'];
     }
-    
+
     public function setCreatedAt($createAt)
     {
         $this->attributes['created_at']= $createAt;
@@ -122,7 +125,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-    
+
     public function setOrders($order)
     {
         $this->orders = $order;
@@ -133,7 +136,7 @@ class User extends Authenticatable
         return $this->orders ;
     }
 
-    
+
     public function items()
     {
         return $this->hasMany(Item::class);

@@ -7,8 +7,8 @@ use App\Models\Product;
 
 
 class ProductController extends Controller
-{  
-    
+{
+
 
     public function index()
     {
@@ -16,7 +16,8 @@ class ProductController extends Controller
       $viewData["title"] = "Products Online-Store";
       $viewData["subtitle"] = "List of Products";
       $viewData["products"] = Product::all();
-      
+
+
       return view("product.index")->with("viewData", $viewData);
     }
 
@@ -24,6 +25,7 @@ class ProductController extends Controller
     {
         $viewData = [];
         $product = Product::FindOrFail($id);
+
         $viewData['title'] = $product->getName()."-Online Store";
         $viewData['subtitle'] = $product->getName()."- Product Name";
         $viewData['product'] = $product;

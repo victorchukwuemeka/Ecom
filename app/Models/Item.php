@@ -62,7 +62,7 @@ class Item extends Model
     {
         return $this->attributes['price'];
     }
-    
+
 
     public function setOrderId($orderId)
     {
@@ -111,7 +111,7 @@ class Item extends Model
 
     public function setOrder($order)
     {
-        $this->order = $order; 
+        $this->order = $order;
     }
 
     public function getOrder()

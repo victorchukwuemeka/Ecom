@@ -2,7 +2,7 @@
 @section('title', $viewData["title"])
 @section('subtitle', $viewData["subtitle"])
 @section('content')
-<div class="card">
+<!--<div class="card">
     <div class="card-header">
         Products in Cart
     </div>
@@ -45,5 +45,52 @@
             </div>
         </div>
     </div>
+</div> -->
+
+ <div class="bg-white rounded-lg shadow-md">
+  <div class="p-6 bg-gray-100 text-center text-xl font-bold uppercase">
+    Products in Cart
+  </div>
+  <div class="p-6">
+    <table class="w-full text-center table-auto">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">ID</th>
+          <th class="px-4 py-2">Name</th>
+          <th class="px-4 py-2">Price</th>
+          <th class="px-4 py-2">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($viewData["products"] as $product)
+        <tr>
+          <td class="px-4 py-2">{{ $product->getId() }}</td>
+          <td class="px-4 py-2">{{ $product->getName() }}</td>
+          <td class="px-4 py-2">${{ $product->getPrice() }}</td>
+          <td class="px-4 py-2">{{ session('products')[$product->getId()] }}</td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <div class="flex justify-end">
+      <a class="btn-secondary mb-2">
+        <b>Total to pay:</b> ${{ $viewData["total"] }}
+      </a>
+      @if (count($viewData["products"]) > 0)
+
+      <a href="{{ route('cart.purchase') }}" class="">
+        Purchase
+      </a>
+      _---
+      <a href="{{ route('cart.delete') }}" class="">
+        Remove all products from Cart
+      </a>
+      @endif
+    </div>
+  </div>
 </div>
+
+
+
+
 @endsection
